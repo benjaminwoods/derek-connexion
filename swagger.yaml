@@ -1,0 +1,178 @@
+openapi: 3.0.3
+info:
+  title: Derek API
+  description: |-
+    Convert data to schema.
+    
+    This is an API that utilizes the same functionality as is exposed in the [derek-py](https://pypi.org/project/derek-py) library.
+    
+    To access the API endpoints, you need to be authorized. You are authorized
+    if you have a valid account. To get an account created, contact me (Ben).
+  contact:
+    name: GitHub
+    url: http://github.com/benjaminwoods/derek-connexion
+  license:
+    name: MIT
+    url: https://github.com/benjaminwoods/derek-connexion/blob/main/LICENSE
+  version: pre-alpha
+externalDocs:
+  description: GitHub readme
+  url: https://github.com/benjaminwoods/derek-connexion/blob/main/README.md
+servers:
+  - url: https://derek.bjqw.me/api/v0
+tags:
+  - name: authn
+    description: Authentication
+paths:
+  /auth/basic:
+    post:
+      tags:
+        - authn
+      summary: Authenticate yourself using basic auth
+      description: |
+        Given a set of scopes, provide an access token that allows access to
+        protected resources.
+        
+        **Note**: this grants unfettered access for that user.
+        
+        You authenticate by using the Basic header. See [here](https://swagger.io/docs/specification/authentication/basic-authentication/) for further details.
+        
+        * If `expires_in` is not set, the default value is `300` (5 minutes).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expires_in:
+                  type: integer
+              required:
+                - username
+                - password
+              example:
+                expires_in: 300
+        required: false
+      responses:
+        '200':
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  expires_in:
+                    type: integer
+        '400':
+          description: Bad request
+        '401':
+          description: Invalid credentials
+        '429':
+          description: Too many requests
+      security:
+        - basic_auth: []
+  /infer/schema/{format}:
+    post:
+      tags:
+        - infer
+      summary: Infer schema from data
+      description: |
+        Given the input data, infer the schema.
+      parameters:
+        - name: format
+          in: path
+          description: Output format
+          required: true
+          schema:
+            type: string
+            enum: ["oas3"]
+        - name: name
+          in: query
+          description: Name of structure
+          required: false
+          schema:
+            type: string
+            example: MyDataStructure
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - type: object
+                - type: array
+              example:
+                - some: [1.0, 3, "4.5"]
+                  data: [3.4, 4.5]
+                - some: [2, "4.0", 1.5]
+                  data: [1.4]
+        required: true
+      responses:
+        '200':
+          description: Matching document
+          content:
+            application/yaml:
+              schema:
+                type: string
+                example:
+                  MyDataStructure:
+                    example:
+                      - data:
+                          - 3.4
+                        some:
+                          - 1.0
+                    items:
+                      additionalProperties:
+                        oneOf:
+                          - items:
+                              type: number
+                            type: array
+                          - items:
+                              oneOf:
+                                - type: number
+                                - type: integer
+                                - type: string
+                            type: array
+                      type: object
+                    type: array
+            application/json:
+              schema:
+                type: object
+                example:
+                  MyDataStructure:
+                    example:
+                      - data:
+                          - 3.4
+                        some:
+                          - 1.0
+                    items:
+                      additionalProperties:
+                        oneOf:
+                          - items:
+                              type: number
+                            type: array
+                          - items:
+                              oneOf:
+                                - type: number
+                                - type: integer
+                                - type: string
+                            type: array
+                      type: object
+                    type: array
+        '400':
+          description: Bad request
+        '403':
+          description: Not authorized
+        '429':
+          description: Too many requests
+      security:
+        - api_key: []
+components:
+  securitySchemes:
+    basic_auth:
+      type: http
+      scheme: basic
+    api_key:
+      type: apiKey
+      in: header
+      name: X-API-KEY
