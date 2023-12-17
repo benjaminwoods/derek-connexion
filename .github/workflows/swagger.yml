@@ -2,7 +2,7 @@ name: Swagger checks
 run-name: Check if swagger file is valid
 on: [pull_request]
 jobs:
-  Explore-GitHub-Actions:
+  OpenAPILint:
     runs-on: ubuntu-latest
     steps:
       - name: OpenAPI Lint Checks
