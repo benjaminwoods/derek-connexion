@@ -28,6 +28,7 @@ paths:
     post:
       tags:
         - authn
+      operationId: postAuthBasic
       summary: Authenticate yourself using basic auth
       description: |
         Given a set of scopes, provide an access token that allows access to
@@ -76,6 +77,7 @@ paths:
     post:
       tags:
         - infer
+      operationId: postInferSchemaFormat
       summary: Infer schema from data
       description: |
         Given the input data, infer the schema.
