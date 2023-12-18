@@ -169,7 +169,9 @@ components:
     basic_auth:
       type: http
       scheme: basic
+      x-basicInfoFunc: src.api.v0.utils.security.basic_auth
     api_key:
       type: apiKey
       in: header
       name: X-API-KEY
+      x-apikeyInfoFunc: src.api.v0.utils.security.api_key
