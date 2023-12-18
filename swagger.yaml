@@ -46,9 +46,6 @@ paths:
               properties:
                 expires_in:
                   type: integer
-              required:
-                - username
-                - password
               example:
                 expires_in: 300
         required: false
