@@ -46,9 +46,6 @@ paths:
               properties:
                 expires_in:
                   type: integer
-              required:
-                - username
-                - password
               example:
                 expires_in: 300
         required: false
@@ -172,7 +169,9 @@ components:
     basic_auth:
       type: http
       scheme: basic
+      x-basicInfoFunc: src.api.v0.utils.security.basic_auth
     api_key:
       type: apiKey
       in: header
       name: X-API-KEY
+      x-apikeyInfoFunc: src.api.v0.utils.security.api_key
