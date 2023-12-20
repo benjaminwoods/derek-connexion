@@ -14,9 +14,12 @@ python = "^3.9"
 connexion = {extras = ["flask", "swagger-ui"], version = "^3.0.5"}
 a2wsgi = "^1.9.0"
 flask = "^3.0.0"
+sqlalchemy = "^2.0.23"
+psycopg2 = "^2.9.9"
 
 [tool.poetry.group.dev.dependencies]
 connexion = {extras = ["flask", "swagger-ui", "uvicorn"], version = "^3.0.5"}
+alembic = "^1.13.0"
 
 [build-system]
 requires = ["poetry-core"]
