@@ -54,7 +54,7 @@ class Test__getOne:
         with pytest.raises(NoResultFound):
             _user.getOne(session, name="user1")
     def test_no_user(self, put_users_table, session):
-        """Given that I have an empty users table
+        """Given that I have a users table
         And that table contains one user "user1"
         When I look for user with name "user2"
         Then NoResultFound is raised
@@ -72,7 +72,7 @@ class Test__getOne:
             # When; Then
             _user.getOne(session, name="user2")
     def test_one_user(self, put_users_table, session):
-        """Given that I have an empty users table
+        """Given that I have a users table
         And that table contains one user "user1"
         When I look for user with name "user1"
         Then I get User "user1"
@@ -93,7 +93,7 @@ class Test__getOne:
         # Then
         assert result == user
     def test_two_users(self, put_users_table, session):
-        """Given that I have an empty users table
+        """Given that I have a users table
         And that table contains one user "user1" with password "abc123"
         And that table contains one user "user2" with password "abc123"
         When I look for user with password "abc123"
