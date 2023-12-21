@@ -69,7 +69,6 @@ def _postOne(session: Session, user: User) -> None:
         A user to add to the table.
     """
     session.add(user)
-
     session.commit()
 
     return

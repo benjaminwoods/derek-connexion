@@ -63,6 +63,3 @@ def basic_auth(username: str, password: str, required_scopes: None = None):
         else:
             # Password does not match
             return None
-
-def api_key(*args, **kwargs):
-    return {}
