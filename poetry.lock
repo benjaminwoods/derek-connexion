@@ -411,7 +411,7 @@ testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "no
 name = "python-dotenv"
 version = "1.0.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8"
 
@@ -658,7 +658,7 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "0a9a52dc4c923f1610315b46ff96e8eac93bc72fb3d0e368c2a5f56020600a17"
+content-hash = "f1495753ca0314dabd097f543979b57593acb1f1b544cdc1bb8772e2887bc087"
 
 [metadata.files]
 a2wsgi = [
