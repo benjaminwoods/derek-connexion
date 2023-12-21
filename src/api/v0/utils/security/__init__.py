@@ -1,5 +1,4 @@
-def basic_auth(*args, **kwargs):
-    return {}
+from ._security import basic_auth
 
 def api_key(*args, **kwargs):
     return {}
