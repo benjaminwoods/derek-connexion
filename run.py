@@ -5,6 +5,9 @@ from flask import redirect
 from connexion import FlaskApp
 from connexion.resolver import RestyResolver
 from connexion.options import SwaggerUIOptions
+from dotenv import load_dotenv
+
+load_dotenv()
 
 _swagger_ui_options = SwaggerUIOptions(
     swagger_ui=True,
